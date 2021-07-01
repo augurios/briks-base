@@ -1,5 +1,4 @@
 import store from './store/index.js'; 
-import Boot from './scenes/boot.js';
 let game;
 let gameOptions = {
 
@@ -24,18 +23,9 @@ window.onload = function() {
             height: 1334,
            
         },
-        scale: {
-            mode: Phaser.Scale.NONE, // we will resize the game with our own code (see Boot.js)
-            width: window.innerWidth * window.devicePixelRatio, // set game width by multiplying window width with devicePixelRatio
-            height: window.innerHeight * window.devicePixelRatio, // set game height by multiplying window height with devicePixelRatio
-            zoom: 1 / window.devicePixelRatio // Set the zoom to the inverse of the devicePixelRatio
-        },
         physics: {
             default: "arcade"
         },
-        scene: [
-            Boot,
-        ],
         transparent: true,
     }
     game = new Phaser.Game(gameConfig);
