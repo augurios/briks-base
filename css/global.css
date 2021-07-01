@@ -1,0 +1,259 @@
+/**
+* Define variables
+*/
+:root {
+    --border: #888888;
+    --decor: #777777;
+    --text: #141414;
+    --text-secondary: #555555;
+    --danger: #d62c1a;
+    --danger--dark: #a82315;
+}
+
+#thegame {
+    background-size: cover;
+    position: relative;
+}
+
+#thegame canvas {
+    position: relative;
+    z-index: 100;
+}
+
+#thegame::before,
+#thegame::after,
+.astrals,
+.astrals::before,
+.astrals::after {
+    content: "";
+    display:block;
+    position: absolute;
+    background-repeat: no-repeat;
+    z-index: 50;
+}
+
+#thegame::before {
+    width: 100%;
+    height: 78px;
+    top: 12rem;
+    left: -8rem;
+    -webkit-animation: slide-right 130s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+	        animation: slide-right 130s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+}
+
+#thegame::after {
+    width: 100%;
+    height: 78px;
+    top: 10rem;
+    right: -15rem;
+    -webkit-animation: slide-right 135s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+	        animation: slide-right 135s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+}
+
+.astrals {
+    width: 100%;
+    height: 78px;
+    top: 6rem;
+    left: 83px;
+    z-index: 45;
+    -webkit-animation: slide-right 585s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+    animation: slide-right 585s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+}
+
+.later .astrals {
+    left: 125px;
+}
+
+.astrals::before {
+    width: 100%;
+    height: 78px;
+    top: -3rem;
+    left: -16rem;
+    -webkit-animation: slide-right 45s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+    animation: slide-right 45s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+}
+
+.astrals::after {
+    width: 100%;
+    height: 78px;
+    top: -3rem;
+    left: -16rem;
+    -webkit-animation: slide-right 55s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+    animation: slide-right 55s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
+}
+
+
+#thegame.morning  {
+    background-image: url('../images/morning/Elementos-juego_dia.svg');
+}
+
+#thegame.morning::before {
+    background-image: url('../images/morning/Elementos-juego_dia_nube1.svg'); 
+    width: 50%;
+    height: 12rem;
+    top: 4rem;
+    left: -2rem;
+}
+#thegame.morning::after {
+    background-image: url('../images/morning/Elementos-juego_dia_nube2.svg');
+    width: 50%;
+    height: 12rem;
+    top: 2rem;
+    right: -4rem;
+}
+#thegame.morning .astrals {
+    background-image: url('../images/morning/Elementos-juego_dia_sol.svg'); 
+    width: 32rem;
+    height: 32rem;
+    top: -8rem;
+    left: -8rem;
+    background-size: cover;
+}
+#thegame.morning.later .astrals {
+    left: -5rem;
+}
+#thegame.morning .astrals::before {
+    background-image: url('../images/morning/Elementos-juego_dia_nube3.svg'); 
+    top: 21rem;
+    width: 50%;
+    height: 11rem;
+    left: 0rem;
+}
+#thegame.morning .astrals::after {
+    background-image: url('../images/morning/Elementos-juego_dia_nube4.svg'); 
+    top: 21rem;
+    width: 50%;
+    height: 11rem;
+    right: -5rem;
+    left: initial;
+}
+
+
+#thegame.afternoon {
+    background-image: url('../images/afternoon/Elementos-juego_tardesita.svg');
+}
+#thegame.afternoon::before {
+    background-image: url('../images/afternoon/Elementos-juego_tardesita_nube1.svg'); 
+    width: 50%;
+    height: 12rem;
+    top: 4rem;
+    left: -2rem;
+}
+#thegame.afternoon::after {
+    background-image: url('../images/afternoon/Elementos-juego_tardesita_nube2.svg');
+    width: 50%;
+    height: 12rem;
+    top: 2rem;
+    right: -4rem;
+}
+#thegame.afternoon .astrals {
+    background-image: url('../images/afternoon/Elementos-juego_tardesita_sol.svg'); 
+    width: 32rem;
+    height: 32rem;
+    top: -4rem;
+    left: -9rem;
+    background-size: cover;
+}
+#thegame.afternoon.later .astrals {
+    left: -5rem;
+}
+#thegame.afternoon .astrals::before {
+    background-image: url('../images/afternoon/Elementos-juego_tardesita_nube3.svg'); 
+    top: 18rem;
+    width: 50%;
+    height: 11rem;
+    left: 0rem;
+}
+
+
+#thegame.evening {
+    background-image: url('../images/evening/Elementos-juego_atardecer.svg');
+}
+#thegame.evening::before {
+    background-image: url('../images/evening/Elementos-juego_atardecer_nube1.svg'); 
+}
+#thegame.evening::after {
+    background-image: url('../images/evening/Elementos-juego_atardecer_nube2.svg');
+}
+#thegame.evening .astrals {
+    background-image: url('../images/evening/Elementos-juego_atardecer_luna.svg'); 
+}
+#thegame.evening .astrals::before {
+    background-image: url('../images/evening/Elementos-juego_atardecer_nube3.svg'); 
+}
+
+
+#thegame.night {
+    background-image: url('../images/night/Elementos-juego_noche.svg');
+}
+
+#thegame.night::before {
+    background-image: url('../images/night/Elementos-juego_noche_nube1.svg'); 
+    width: 50%;
+    height: 12rem;
+    top: 4rem;
+    left: -2rem;
+}
+#thegame.night::after {
+    background-image: url('../images/night/Elementos-juego_noche_nube2.svg');
+    width: 50%;
+    height: 12rem;
+    top: 2rem;
+    right: -4rem;
+}
+#thegame.night .astrals {
+    background-image: url('../images/night/Elementos-juego_noche_luna.svg'); 
+    width: 8rem;
+    height: 8rem;
+    top: 2rem;
+    left: 2rem;
+    background-size: cover;
+}
+#thegame.night.later .astrals {
+    left: 6rem;
+}
+#thegame.night .astrals::before {
+    background-image: url('../images/night/Elementos-juego_noche_nube3.svg'); 
+    top: 9rem;
+    width: 17rem;
+    height: 11rem;
+    left: 0rem;
+}
+#thegame.night .astrals::after {
+    background-image: url('../images/night/Elementos-juego_noche_nube4.svg'); 
+    top: 21rem;
+    width: 50%;
+    height: 11rem;
+    right: -9rem;
+    left: initial;
+}
+
+
+/* animations */
+
+/**
+ * ----------------------------------------
+ * animation slide-right
+ * ----------------------------------------
+ */
+ @-webkit-keyframes slide-right {
+    0% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+    }
+    100% {
+      -webkit-transform: translateX(30px);
+              transform: translateX(30px);
+    }
+  }
+  @keyframes slide-right {
+    0% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+    }
+    100% {
+      -webkit-transform: translateX(30px);
+              transform: translateX(30px);
+    }
+  }
+  
