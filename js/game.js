@@ -17,14 +17,8 @@ window.onload = function() {
     let gameConfig = {
         type: Phaser.AUTO,
         scale: {
-            mode: Phaser.Scale.FIT,
             autoCenter: Phaser.Scale.CENTER_BOTH,
             parent: "thegame",
-            width: 750,
-            height: 1334,
-           
-        },
-        scale: {
             mode: Phaser.Scale.NONE, // we will resize the game with our own code (see Boot.js)
             width: window.innerWidth * window.devicePixelRatio, // set game width by multiplying window width with devicePixelRatio
             height: window.innerHeight * window.devicePixelRatio, // set game height by multiplying window height with devicePixelRatio
@@ -65,7 +59,7 @@ class PlayGame extends Phaser.Scene{
     create(){
         // background images
         // this.add.image(540, 690, 'morningSky');
-
+        this.cameras.main.setRoundPixels(true);
         // physics group which manages all tiles in game
         this.tileGroup = this.physics.add.group()
 
