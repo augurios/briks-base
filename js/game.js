@@ -3,13 +3,13 @@ let game;
 let gameOptions = {
 
     // number of columns
-    columns: 5,
+    columns: 6,
 
     // number of rows, must be high enough to allow object pooling
     rows: 20,
 
     // tile speed in pixels per second
-    tileSpeed: 12,
+    tileSpeed: 90,
 
 }
 window.onload = function() {
@@ -43,25 +43,38 @@ class PlayGame extends Phaser.Scene{
         this.highScore = store.state.score;
         this.score = 0 ;
         this.scoreText = null;
+        this.dayPart = 'morning'
+        this.isLater = false;
     }
     preload(){
         let imageSize = window.devicePixelRatio;
-        console.log('window.devicePixelRatio',window.devicePixelRatio)
+        
+        console.log('imageSize',imageSize)
+
         this.load.spritesheet("tiles", "stones@" + imageSize + "x.png", {
-            frameWidth: 100,
-            frameHeight: 100
+            frameWidth: 100 * imageSize,
+            frameHeight: 100 * imageSize
         });        
+        
     }
     create(){
         // background images
         // this.add.image(540, 690, 'morningSky');
-
+        
         // physics group which manages all tiles in game
-        this.tileGroup = this.physics.add.group()
+        this.tileGroup = this.physics.add.group();
 
         // determining tile size according to game width and columns
         this.tileSize = game.config.width / gameOptions.columns;
 
+        //set part of the day; 
+
+        if(this.dayPart == 'evening' || this.dayPart == 'night') {
+            this.isLater = true;
+        } else {
+            this.isLater = false;
+        }
+        
         // time to add tiles to the game
         for(let i = 0; i < gameOptions.rows; i++){
 
@@ -75,9 +88,9 @@ class PlayGame extends Phaser.Scene{
 
             // now we place the tiles, row by row
             for(let j = 0; j < gameOptions.columns; j++){
-
+                let tileColor = this.isLater ? values[j].id + 5 : values[j].id;
                 // add a tile. Tile frame is set according to "values" shuffled array
-                let tile = this.tileGroup.create(j * this.tileSize, i * this.tileSize + game.config.height / 4 * 3, "tiles", values[j].id);
+                let tile = this.tileGroup.create(j * this.tileSize, i * this.tileSize + game.config.height / 4 * 3, "tiles", tileColor);
 
                 // call adjustTile method to adjust tile origin and display size
                 this.adjustTile(tile,values[j]);
@@ -85,7 +98,7 @@ class PlayGame extends Phaser.Scene{
         }
 
         // let's build once again an array with integers between 0 and gameOptions.columns - 1
-        let values = Phaser.Utils.Array.NumberArray(0, gameOptions.columns - 1);
+        let values = this.isLater ? Phaser.Utils.Array.NumberArray(5, (gameOptions.columns - 1)+5) : Phaser.Utils.Array.NumberArray(0, gameOptions.columns - 1);
 
         // remove the item at "middlecolor" position because we don't want it to be randomly selected
         values.splice(middleColor, 1);
@@ -144,11 +157,6 @@ class PlayGame extends Phaser.Scene{
         // set display width and height to "tileSize" pixels
         sprite.displayWidth = this.tileSize;
         sprite.displayHeight = this.tileSize;
-        if(value) {
-            sprite.flipY = value.rotated
-        } else {
-            sprite.flipY = !sprite.flipY
-        };
     }
 
     // method to move player tile
@@ -195,7 +203,7 @@ class PlayGame extends Phaser.Scene{
         let tileBelow = this.physics.overlapRect(this.player.x + this.tileSize / 2, this.player.y + this.tileSize * 1.5, 1, 1);
 
         // "tileBelow" is an array so we have to compare the first - and only - item frame with player frame. Are the two frames the same?
-        if(tileBelow[0].gameObject.frame.name == this.player.frame.name && tileBelow[0].gameObject.flipY != this.player.flipY){
+        if(tileBelow[0].gameObject.frame.name == this.player.frame.name){
 
             // we have a match
             this.matched = true;
@@ -226,9 +234,9 @@ class PlayGame extends Phaser.Scene{
 
                     // place all tiles below the lowest row
                     for(let i = 0; i < gameOptions.columns; i++){
-                        rowBelow[i].gameObject.setFrame(values[i].id);
+                        let frameName = this.isLater ? values[i].id + 5 : values[i].id;
+                        rowBelow[i].gameObject.setFrame(frameName);
                         rowBelow[i].gameObject.y += this.tileSize * gameOptions.rows;
-                        rowBelow[i].gameObject.flipY = values[i].rotated;
                     }
 
                     // check for matches again, there could be a combo
@@ -253,10 +261,13 @@ class PlayGame extends Phaser.Scene{
                 let tileBelow = this.physics.overlapRect(this.player.x + this.tileSize / 2, this.player.y + this.tileSize * 1.5, 1, 1);
 
                 // the good old array with all integers from zero to gameOptions.columns - 1
-                let values = Phaser.Utils.Array.NumberArray(0, gameOptions.columns - 1);
-
+                let values = this.isLater ? Phaser.Utils.Array.NumberArray(5, (gameOptions.columns - 1) + 5) : Phaser.Utils.Array.NumberArray(0, gameOptions.columns - 1);
+                
+                let tileBelowName = this.isLater ? tileBelow[0].gameObject.frame.name - 5 : tileBelow[0].gameObject.frame.name;
                 // remove the item at "frame" value of tile below the player pbecause we don't want it to be randomly selected
-                values.splice(tileBelow[0].gameObject.frame.name, 1);
+                values.splice(tileBelowName, 1);
+
+                
 
                 // change player frame
                 this.player.setFrame(Phaser.Utils.Array.GetRandom(values));
@@ -434,6 +445,7 @@ class livingBackground {
     constructor(game) { 
         this.gameContainer = document.querySelector("#thegame");
         this.game = game;
+        this.gameScene = null;
 
         this.init();
     }
@@ -441,12 +453,13 @@ class livingBackground {
     init() {
         // this.gameContainer.classList.add('night');
         // partsOfDay[1] = true;
-        this.setBackground();
+        
 
         setTimeout(()=>{
-            const gameScene = this.game.scene.getScene('PlayGame');
+            this.gameScene = this.game.scene.getScene('PlayGame');
+            this.setBackground();
             
-            gameScene.events.on('checktime', () => {
+            this.gameScene.events.on('checktime', () => {
                this.setBackground();
             })
         },100)
@@ -511,6 +524,7 @@ class livingBackground {
         this.gameContainer.classList.add(dayParts[0]);
         // this.gameContainer.classList.add('night');
         // partsOfDay[1] = true;
+        if(this.gameScene) this.gameScene.dayPart = dayParts[0];
 
         if(dayParts[1]) {
             this.gameContainer.classList.add('later');
