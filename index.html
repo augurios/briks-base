@@ -3,54 +3,6 @@
 <html>
 	<head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style type = "text/css">
-            body{
-                background: #000000;
-                padding: 0px;
-                margin: 0px;
-            }
-            .modal {
-            display: none;
-            position: fixed; 
-            padding-top: 75%;
-            left: 0; 
-            top: 0;
-            width: 100%;
-            height: 100%; 
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 200;
-            }
-            .modal-content {
-            position: relative; 
-            background-color: white;
-            padding: 20px; 
-            margin: auto; 
-            max-width: 420px;  
-            -webkit-animation-name: animatetop;
-            -webkit-animation-duration: 0.4s;
-            animation-name: animatetop;
-            animation-duration: 0.4s;
-            text-align: center;
-            }
-            .close-btn {
-            float: right; 
-            color: lightgray; 
-            font-size: 24px;  
-            font-weight: bold;
-            }
-            .close-btn:hover {
-            color: darkgray;
-            }
-            @-webkit-keyframes animatetop {
-            from {top:-300px; opacity:0} 
-            to {top:0; opacity:1}
-            }
-            @keyframes animatetop {
-            from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
-            }
-        </style>
         <script src="phaser.min.js"></script>
         <script type="module" src="js/game.js"></script>
 
@@ -61,11 +13,15 @@
             <span class="astrals"></span>
         </div>
 
+        <button class="pause-button"></button>
+
         <div class="modal" id="game-menu">
             <div class="modal-content">
-                <h1>Welcome to The Game</h1>
+                <img src="./images/gameElements/Game_Elements_DailyStones_intro.svg" alt="">
                 <p>high score: <span id="highscore"></span></p>
-                <button class="start-game-btn"> Start Game</button>
+                <button class="start-game-btn"> Start Game</button> <br />
+                <button class="highscore-btn" disabled> High Scores</button><br />
+                <button class="options-btn"> Options</button><br />
                 <h5>Visuals by AleAtroz • Code By Augur88</h5>
             </div>
           </div>
@@ -73,18 +29,41 @@
           <div class="modal" id="pause-menu">
             <div class="modal-content">
                 <span class="close-btn">&times;</span>
-                <h1>PAUSED</h1>
+                <img src="./images/gameElements/Game_Elements_Paused.svg" alt="">
+                <button class="main-game-btn"> back to Main</button> &nbsp; &nbsp;
                 <button id="resume-game-btn"> back to game</button>
-                <button class="main-game-btn"> back to Main</button>
+                
                 <h5>Visuals by AleAtroz • Code By Augur88</h5>
             </div>
           </div>
 
           <div class="modal" id="end-game">
             <div class="modal-content">
-                <h1>Game Finished! </h1>
+                <img src="./images/gameElements/Game_Elements_GameFinished.svg" alt="">
                 <p>final score: <span id="finalscore"></span></p>
-                <button class="restart-game-btn"> Start New Game</button>
+                <button class="restart-game-btn"> Start New Game</button> &nbsp; &nbsp;
+                <button class="main-game-btn"> back to Main</button>
+                <h5>Visuals by AleAtroz • Code By Augur88</h5>
+            </div>
+          </div>
+
+          <div class="modal" id="game-options">
+            <div class="modal-content">
+                <img src="./images/gameElements/Game_Elements_Options.svg" alt="">
+                <div class="options-container">
+                    <label for="music-control" class="game-option">
+                        <input type="checkbox" name="music-control" id="music-control"> <span class="control-label">Music On</span>
+                    </label>
+                    <label for="sound-control" class="game-option">
+                        <input type="checkbox" name="sound-control" id="sound-control"> <span class="control-label">Sound On</span>
+                    </label>
+                    <label for="tutorial-control" class="game-option">
+                        <input type="checkbox" name="tutorial-control" id="tutorial-control"> <span class="control-label">Show tutorial</span>
+                    </label>
+                    <label for="highscore-control" class="game-option">
+                        <input type="checkbox" name="highscore-control" id="highscore-control" disabled> <span class="control-label">Share Highscore</span>
+                    </label>
+                </div>
                 <button class="main-game-btn"> back to Main</button>
                 <h5>Visuals by AleAtroz • Code By Augur88</h5>
             </div>

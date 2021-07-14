@@ -14,4 +14,9 @@ export default {
         
         return state;
     },
+    toggleOption(state, payload) {
+        state[payload] = !state[payload];
+        
+        return state;
+    },
 };

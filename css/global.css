@@ -10,6 +10,197 @@
     --danger--dark: #a82315;
 }
 
+
+/* modals styles */
+
+
+body{
+    background: #000000;
+    padding: 0px;
+    margin: 0px;
+    font-family: sans-serif;
+    color: #fff;
+}
+.modal {
+    display: none;
+    position: fixed; 
+    padding-top: 5rem;
+    left: 0; 
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 200;
+}
+.modal-content {
+    position: relative; 
+    /* background-color: white; */
+    padding: 20px; 
+    margin: auto; 
+    max-width: 420px;  
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    text-align: center;
+}
+.close-btn {
+    float: right; 
+    color: lightgray; 
+    font-size: 24px;  
+    font-weight: bold;
+}
+.close-btn:hover {
+    color: darkgray;
+}
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+#game-menu.modal .modal-content {
+    background-color: transparent;
+}
+
+#game-menu.modal .modal-content h5 {
+    margin-top: 72px;
+}
+
+button {
+    font-size: 0;
+    width: 150px;
+    height: 45px;
+    border: none;
+    background-color: transparent;
+    margin-bottom: 25px;
+}
+
+button:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.start-game-btn {
+    background-image: url('../images/gameElements/Game_Elements_Button_StartGame_off.svg'); 
+}
+.start-game-btn:hover,
+.start-game-btn:focus {
+    background-image: url('../images/gameElements/Game_Elements_Button_StartGame_on.svg'); 
+}
+
+.highscore-btn {
+    background-image: url('../images/gameElements/Game_Elements_Button_HighScores_off.svg'); 
+}
+
+.highscore-btn:hover,
+.highscore-btn:focus {
+    background-image: url('../images/gameElements/Game_Elements_Button_HighScores_on.svg'); 
+}
+
+.options-btn {
+    background-image: url('../images/gameElements/Game_Elements_Button_Options_off.svg'); 
+}
+
+.options-btn:hover,
+.options-btn:focus {
+    background-image: url('../images/gameElements/Game_Elements_Button_Options_on-05.svg'); 
+}
+
+#resume-game-btn {
+    background-image: url('../images/gameElements/Game_Elements_Button_ReturnToGame_off.svg'); 
+}
+
+#resume-game-btn:hover,
+#resume-game-btn:focus {
+    background-image: url('../images/gameElements/Game_Elements_Button_ReturnToGame_on.svg'); 
+}
+.main-game-btn {
+    background-image: url('../images/gameElements/Game_Elements_Button_BackToMain_off.svg'); 
+}
+
+.main-game-btn:hover,
+.main-game-btn:focus {
+    background-image: url('../images/gameElements/Game_Elements_Button_BackToMain_on.svg'); 
+}
+
+.restart-game-btn {
+    background-image: url('../images/gameElements/Game_Elements_Button_StartNewGame_off.svg'); 
+}
+
+.restart-game-btn:hover,
+.restart-game-btn:focus {
+    background-image: url('../images/gameElements/Game_Elements_Button_StartNewGame_on.svg'); 
+}
+
+#pause-menu img {
+    margin-bottom: 48px;
+}
+
+#game-options img {
+    margin-bottom: 24px;
+}
+
+#end-game p,
+.options-container {
+    font-size: 1.4rem;
+    padding: 2rem 0;
+    border: 2px solid #ffffff80;
+    border-radius: 13px;
+    margin-bottom: 2rem;
+}
+
+.game-option {
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.game-option input[type="checkbox"] {
+    appearance: none;
+    display: inline-block;
+    background-image: url('../images/gameElements/Game_Elements_Options_Button_off.svg');
+    width: 53px;
+    height: 32px;
+    vertical-align: middle;
+}
+
+.game-option input[type="checkbox"]:checked {
+    background-image: url('../images/gameElements/Game_Elements_Options_Button_on.svg');
+}
+
+.game-option input[type="checkbox"]:disabled {
+    opacity: 0.5;
+}
+
+/* pause button */
+
+.pause-button {
+    position: fixed;
+    top: 11px;
+    right: -11px;
+    width: 4rem;
+    height: 2rem;
+    z-index: 110;
+    display: none;
+}
+
+.pause-button::after,
+.pause-button::before {
+    content: "";
+    display: inline-block;
+    width: 9px;
+    height: 2rem;
+    background-color: #ffffff8e;
+    margin-right: 5px;
+}
+
+
+/* game living background and cavas styles */
+
 #thegame {
     background-size: cover;
     position: relative;

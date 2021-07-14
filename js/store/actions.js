@@ -8,4 +8,7 @@ export default {
     addScore(context, payload) {
         context.commit('addScore', payload);
     },
+    toggleOption(context, payload) {
+        context.commit('toggleOption', payload);
+    },
 };
