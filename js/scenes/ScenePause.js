@@ -32,10 +32,13 @@ export default function () {
 
       togglePause() {
         const gameScene = this.scene.get('PlayGame').scene;
+        
         if(gameScene.isPaused()) {
             gameScene.resume();
+            gameScene.scene.bgsong.resume();
         } else  {
             gameScene.pause();
+            gameScene.scene.bgsong.pause();
         }
       }
 

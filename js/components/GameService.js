@@ -79,6 +79,7 @@ class gameService {
 
       gameScene.events.on('pause', () => {
           if(!gameScene.gameOver) this.openPause();
+          if (gameScene.scene.scene.state.soundOn) gameScene.scene.scene.pauseMenu.play();
       })
       gameScene.events.on('resume', () => {
           this.closePause()
@@ -88,11 +89,13 @@ class gameService {
       this.closeBtn.onclick = () => {
           this.closePause()
           gameScene.scene.resume();
+          gameScene.scene.scene.bgsong.resume();
       }
 
       this.resumeBtn.onclick = () => {
           this.closePause()
           gameScene.scene.resume();
+          gameScene.scene.scene.bgsong.resume();
       }
       
   }

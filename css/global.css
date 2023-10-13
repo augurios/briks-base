@@ -275,7 +275,8 @@ button:disabled {
 
 
 #thegame.morning  {
-    background-image: url('../images/morning/Elementos-juego_dia.svg');
+    background-image: url('../images/morning/Elementos-juego_dia.png');
+    background-position: 68%;
 }
 
 #thegame.morning::before {
@@ -321,17 +322,17 @@ button:disabled {
 
 
 #thegame.afternoon {
-    background-image: url('../images/afternoon/Elementos-juego_tardesita.svg');
+    background-image: url('../images/afternoon/Elementos-juego_tardesita.png');
 }
 #thegame.afternoon::before {
-    background-image: url('../images/afternoon/Elementos-juego_tardesita_nube1.svg'); 
+    /* background-image: url('../images/afternoon/Elementos-juego_tardesita_nube1.svg');  */
     width: 50%;
     height: 12rem;
     top: 4rem;
     left: -2rem;
 }
 #thegame.afternoon::after {
-    background-image: url('../images/afternoon/Elementos-juego_tardesita_nube2.svg');
+    /* background-image: url('../images/afternoon/Elementos-juego_tardesita_nube2.svg'); */
     width: 50%;
     height: 12rem;
     top: 2rem;
@@ -349,7 +350,7 @@ button:disabled {
     left: -5rem;
 }
 #thegame.afternoon .astrals::before {
-    background-image: url('../images/afternoon/Elementos-juego_tardesita_nube3.svg'); 
+    /* background-image: url('../images/afternoon/Elementos-juego_tardesita_nube3.svg');  */
     top: 18rem;
     width: 50%;
     height: 11rem;
@@ -358,24 +359,25 @@ button:disabled {
 
 
 #thegame.evening {
-    background-image: url('../images/evening/Elementos-juego_atardecer.svg');
+    background-image: url('../images/evening/Elementos-juego_atardecer.png');
 }
-#thegame.evening::before {
+/* #thegame.evening::before {
     background-image: url('../images/evening/Elementos-juego_atardecer_nube1.svg'); 
 }
 #thegame.evening::after {
     background-image: url('../images/evening/Elementos-juego_atardecer_nube2.svg');
-}
+} */
 #thegame.evening .astrals {
     background-image: url('../images/evening/Elementos-juego_atardecer_luna.svg'); 
 }
-#thegame.evening .astrals::before {
+/* #thegame.evening .astrals::before {
     background-image: url('../images/evening/Elementos-juego_atardecer_nube3.svg'); 
-}
+} */
 
 
 #thegame.night {
-    background-image: url('../images/night/Elementos-juego_noche.svg');
+    background-image: url('../images/night/Elementos-juego_noche.png');
+    background-position: center center;
 }
 
 #thegame.night::before {
@@ -393,7 +395,7 @@ button:disabled {
     right: -4rem;
 }
 #thegame.night .astrals {
-    background-image: url('../images/night/Elementos-juego_noche_luna.svg'); 
+    background-image: url('../images/night/Elementos-juego_noche_luna.png'); 
     width: 8rem;
     height: 8rem;
     top: 2rem;

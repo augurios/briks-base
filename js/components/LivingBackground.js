@@ -79,8 +79,8 @@ class livingBackground {
       this.gameContainer.removeAttribute('class');
       const dayParts = this.partOfDay();
       this.gameContainer.classList.add(dayParts[0]);
-      // this.gameContainer.classList.add('night');
-      // partsOfDay[1] = true;
+    //   this.gameContainer.classList.add('evening');
+    //   dayParts[1] = true;
       if(this.gameScene) this.gameScene.dayPart = dayParts[0];
 
       if(dayParts[1]) {

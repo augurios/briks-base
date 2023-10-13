@@ -2,26 +2,46 @@ class PlayGame extends Phaser.Scene{
   constructor(store, gameOptions){
       super("PlayGame");
       this.store = store;
+      this.state = store.state;
       this.highScore = store.state.score;
       this.score = 0 ;
       this.scoreText = null;
       this.dayPart = 'morning'
       this.isLater = false;
       this.gameOptions = gameOptions;
+      this.bgsong = null;
+      this.gameStart = null;
   }
   preload(){
-      let imageSize = Math.round(window.devicePixelRatio);
-      // console.log('imageSize',imageSize );
-      this.load.spritesheet("tiles", "stones@" + imageSize + "x.png", {
-          frameWidth: 100 * imageSize,
-          frameHeight: 100 * imageSize
-      });        
-      
+        if(!this.load.totalComplete) this.loadingBar();     
+
+        let imageSize = Math.round(window.devicePixelRatio);
+        // console.log('imageSize',imageSize );
+        this.load.spritesheet("tiles", "stones@" + imageSize + "x.png", {
+            frameWidth: 100 * imageSize,
+            frameHeight: 100 * imageSize
+        });
+
+        this.load.audio("bgsong", ["resourses/alSurPorPista(Demo).mp3"]);
+        this.load.audio("gameStart", ["resourses/game_start.mp3"]);
+        this.load.audio("slides", ["resourses/slide.mp3"]);
+        this.load.audio("score", ["resourses/score.mp3"]);
+        this.load.audio("pause", ["resourses/pause.mp3"]);
+
   }
   create(){
       // background images
       // this.add.image(540, 690, 'morningSky');
-      
+    //  return;
+      this.bgsong = this.sound.add("bgsong", { loop: true });
+      this.gameStart = this.sound.add("gameStart", { loop: false });
+      this.slideSfx = this.sound.add("slides", { loop: false });
+      this.scoreSfx = this.sound.add("score", { loop: false });
+      this.pauseMenu = this.sound.add("pause", { loop: false });
+
+      if (this.state.soundOn) this.gameStart.play();
+      if (this.state.musicOn) this.bgsong.play();
+
       // physics group which manages all tiles in game
       this.tileGroup = this.physics.add.group();
 
@@ -125,7 +145,7 @@ class PlayGame extends Phaser.Scene{
 
       // if we can move...
       if(this.canMove){
-
+        if (this.state.soundOn) this.slideSfx.play();
           // determine column according to input coordinate and tile size
           let column = Math.floor(pointer.x / this.tileSize);
 
@@ -159,7 +179,7 @@ class PlayGame extends Phaser.Scene{
 
   // method to check tile matches
   checkMatch(){
-
+        
       // get tile below player tile
       let tileBelow = this.physics.overlapRect(this.player.x + this.tileSize / 2, this.player.y + this.tileSize * 1.5, 1, 1);
 
@@ -175,6 +195,7 @@ class PlayGame extends Phaser.Scene{
           this.score = this.score + this.gameOptions.columns;
           this.scoreText.setText('Score: ' + this.score);
 
+          
           // tween down the player
           this.tweens.add({
               targets: [this.player],
@@ -199,7 +220,7 @@ class PlayGame extends Phaser.Scene{
                       rowBelow[i].gameObject.setFrame(frameName);
                       rowBelow[i].gameObject.y += this.tileSize * this.gameOptions.rows;
                   }
-
+                  if (this.state.soundOn) this.scoreSfx.play();
                   // check for matches again, there could be a combo
                   this.checkMatch();
               }
@@ -244,6 +265,7 @@ class PlayGame extends Phaser.Scene{
 
           // gmae over man, restart the game
           this.scene.pause();
+          this.bgsong.destroy();
           this.gameOver = true;
           
           if(this.score > this.highScore) {
@@ -253,6 +275,65 @@ class PlayGame extends Phaser.Scene{
       }
   }
 
-  
+  loadingBar() {
+    var progressBar = this.add.graphics();
+        var progressBox = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(240, 270, 320, 50);
+        
+        var width = this.cameras.main.width;
+        var height = this.cameras.main.height;
+        var loadingText = this.make.text({
+            x: width / 2,
+            y: height / 2 - 50,
+            text: 'Loading...',
+            style: {
+                font: '20px monospace',
+                fill: '#ffffff'
+            }
+        });
+        loadingText.setOrigin(0.5, 0.5);
+        
+        var percentText = this.make.text({
+            x: width / 2,
+            y: height / 2 - 5,
+            text: '0%',
+            style: {
+                font: '18px monospace',
+                fill: '#ffffff'
+            }
+        });
+        percentText.setOrigin(0.5, 0.5);
+        
+        var assetText = this.make.text({
+            x: width / 2,
+            y: height / 2 + 50,
+            text: '',
+            style: {
+                font: '18px monospace',
+                fill: '#ffffff'
+            }
+        });
+        assetText.setOrigin(0.5, 0.5);
+        
+        this.load.on('progress', function (value) {
+            percentText.setText(parseInt(value * 100) + '%');
+            progressBar.clear();
+            progressBar.fillStyle(0xffffff, 1);
+            progressBar.fillRect(250, 280, 300 * value, 30);
+        });
+        
+        this.load.on('fileprogress', function (file) {
+            assetText.setText('Loading asset: ' + file.key);
+        });
+
+        this.load.on('complete', function () {
+            progressBar.destroy();
+            progressBox.destroy();
+            loadingText.destroy();
+            percentText.destroy();
+            assetText.destroy();
+        });   
+  }
 }
 export default PlayGame
